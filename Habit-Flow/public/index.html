@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HabitFlow - Smart Habit Tracker with Behavioral Psychology">
+  <title>HabitFlow | Smart Habit Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-noise"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav-glass">
+      <div class="nav-brand">
+        <span class="brand-icon">◉</span>
+        <span class="brand-text">HabitFlow</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#" class="nav-link active" data-view="dashboard">Dashboard</a>
+        <a href="#" class="nav-link" data-view="habits">Habits</a>
+        <a href="#" class="nav-link" data-view="analytics">Analytics</a>
+      </div>
+      <div class="nav-user" id="navUser">
+        <button class="btn-glass btn-icon" id="userMenuBtn">
+          <span class="user-avatar">U</span>
+        </button>
+      </div>
+      <div class="nav-auth" id="navAuth">
+        <button class="btn-glass" id="loginBtn">Login</button>
+        <button class="btn-primary" id="signupBtn">Sign Up</button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Auth View -->
+      <section class="view auth-view active" id="authView">
+        <div class="auth-container">
+          <div class="card-glass auth-card">
+            <div class="auth-header">
+              <h1 class="auth-title" id="authTitle">Welcome Back</h1>
+              <p class="auth-subtitle" id="authSubtitle">Sign in to track your habits</p>
+            </div>
+            
+            <form class="auth-form" id="authForm">
+              <div class="form-group" id="usernameGroup" style="display: none;">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="input-glass" placeholder="Choose a username">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="input-glass" placeholder="your@email.com" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="input-glass" placeholder="••••••••" required>
+              </div>
+              <button type="submit" class="btn-primary btn-block" id="authSubmit">Sign In</button>
+            </form>
+            
+            <div class="auth-footer">
+              <p id="authToggle">Don't have an account? <a href="#" id="authToggleLink">Sign Up</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dashboard View -->
+      <section class="view dashboard-view" id="dashboardView">
+        <div class="dashboard-header">
+          <div class="greeting">
+            <h1>Good <span id="timeOfDay">Morning</span>, <span id="userName">User</span></h1>
+            <p class="date" id="currentDate"></p>
+          </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+          <div class="card-glass stat-card">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-content">
+              <span class="stat-value" id="activeStreaks">0</span>
+              <span class="stat-label">Active Streaks</span>
+            </div>
+          </div>
+          <div class="card-glass stat-card">
+            <div class="stat-icon">✓</div>
+            <div class="stat-content">
+              <span class="stat-value" id="todayProgress">0%</span>
+              <span class="stat-label">Today's Progress</span>
+            </div>
+          </div>
+          <div class="card-glass stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-content">
+              <span class="stat-value" id="weeklyRate">0%</span>
+              <span class="stat-label">Weekly Rate</span>
+            </div>
+          </div>
+          <div class="card-glass stat-card">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-content">
+              <span class="stat-value" id="longestStreak">0</span>
+              <span class="stat-label">Best Streak</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Today's Habits -->
+        <div class="section">
+          <div class="section-header">
+            <h2>Today's Habits</h2>
+            <button class="btn-glass btn-sm" id="addHabitBtn">+ Add Habit</button>
+          </div>
+          <div class="habits-list" id="todayHabits">
+            <div class="loading-placeholder">
+              <div class="spinner"></div>
+              <p>Loading habits...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Insights -->
+        <div class="section">
+          <div class="section-header">
+            <h2>Insights</h2>
+          </div>
+          <div class="insights-list" id="insightsList">
+            <div class="card-glass insight-card">
+              <div class="insight-icon">💡</div>
+              <div class="insight-content">
+                <p class="insight-message">Complete your first habit to get personalized insights!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Habits View -->
+      <section class="view habits-view" id="habitsView">
+        <div class="section-header">
+          <h1>My Habits</h1>
+          <button class="btn-primary" id="newHabitBtn">+ New Habit</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-category="all">All</button>
+          <button class="filter-tab" data-category="Health">Health</button>
+          <button class="filter-tab" data-category="Productivity">Productivity</button>
+          <button class="filter-tab" data-category="Mindfulness">Mindfulness</button>
+          <button class="filter-tab" data-category="Learning">Learning</button>
+        </div>
+
+        <div class="habits-grid" id="habitsGrid">
+          <!-- Habits will be loaded here -->
+        </div>
+      </section>
+
+      <!-- Analytics View -->
+      <section class="view analytics-view" id="analyticsView">
+        <div class="section-header">
+          <h1>Analytics</h1>
+          <div class="period-selector">
+            <button class="btn-glass btn-sm active" data-period="week">Week</button>
+            <button class="btn-glass btn-sm" data-period="month">Month</button>
+            <button class="btn-glass btn-sm" data-period="year">Year</button>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+          <div class="card-glass analytics-card">
+            <h3>Completion Rate</h3>
+            <div class="chart-container">
+              <div class="donut-chart" id="completionChart">
+                <div class="donut-center">
+                  <span class="donut-value" id="completionValue">0%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-glass analytics-card">
+            <h3>Best Performing Days</h3>
+            <div class="bar-chart" id="dayChart">
+              <div class="bar-item">
+                <span class="bar-label">Mon</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 0%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Tue</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 0%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Wed</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 0%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Thu</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 0%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Fri</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 0%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Sat</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 0%"></div></div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Sun</span>
+                <div class="bar-track"><div class="bar-fill" style="width: 0%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-glass analytics-card full-width">
+            <h3>Top Habits</h3>
+            <div class="top-habits" id="topHabits">
+              <!-- Top habits will be loaded here -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Habit Modal -->
+    <div class="modal" id="habitModal">
+      <div class="modal-overlay"></div>
+      <div class="card-glass modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">New Habit</h2>
+          <button class="btn-icon modal-close" id="modalClose">&times;</button>
+        </div>
+        <form class="modal-form" id="habitForm">
+          <div class="form-group">
+            <label for="habitName">Habit Name</label>
+            <input type="text" id="habitName" class="input-glass" placeholder="e.g., Morning Meditation" required>
+          </div>
+          <div class="form-group">
+            <label for="habitIcon">Icon</label>
+            <div class="icon-selector" id="iconSelector">
+              <button type="button" class="icon-btn active" data-icon="🎯">🎯</button>
+              <button type="button" class="icon-btn" data-icon="💪">💪</button>
+              <button type="button" class="icon-btn" data-icon="📚">📚</button>
+              <button type="button" class="icon-btn" data-icon="🧘">🧘</button>
+              <button type="button" class="icon-btn" data-icon="💧">💧</button>
+              <button type="button" class="icon-btn" data-icon="🏃">🏃</button>
+              <button type="button" class="icon-btn" data-icon="✍️">✍️</button>
+              <button type="button" class="icon-btn" data-icon="💤">💤</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="habitCategory">Category</label>
+              <select id="habitCategory" class="input-glass">
+                <option value="Health">Health</option>
+                <option value="Productivity">Productivity</option>
+                <option value="Mindfulness">Mindfulness</option>
+                <option value="Learning">Learning</option>
+                <option value="Social">Social</option>
+                <option value="Finance">Finance</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="habitDifficulty">Difficulty</label>
+              <select id="habitDifficulty" class="input-glass">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="habitMotivation">Why this habit? (Optional)</label>
+            <textarea id="habitMotivation" class="input-glass" rows="2" placeholder="Your motivation..."></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-glass" id="cancelHabit">Cancel</button>
+            <button type="submit" class="btn-primary" id="saveHabit">Save Habit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <span class="toast-message"></span>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
